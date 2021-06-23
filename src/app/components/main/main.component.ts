@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
+import {SearchService} from "../../services/search.service";
 
 interface Character {
   name: string;
@@ -15,7 +16,8 @@ export class MainComponent implements OnInit, OnDestroy {
   myCharacter: Character[] = [];
   inputText: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private searchService: SearchService) {
   }
 
   ngOnInit() {
@@ -76,7 +78,8 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    this.router.navigate(['/result'], {state: {data: this.inputText}})
+    this.searchService.setResult(this.myCharacter);
+    this.router.navigate(['/result']);
   }
 
   ngOnDestroy() {
