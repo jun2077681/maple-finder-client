@@ -1,11 +1,29 @@
 <div class="body">
   <div class="main-wrap">
-    <ul ngbNav #nav="ngbNav" class="nav-tabs">
-      <li ngbNavItem *ngFor="let item of myObject | keyvalue">
-        <a ngbNavLink>{{item.key}}</a>
-        <ng-template ngbNavContent>{{item.value}}</ng-template>
-      </li>
-    </ul>
-    <div [ngbNavOutlet]="nav"></div>
+    <form>
+      <div class="form-group form-inline">
+        nickname <input class="form-control ml-2" type="text" name="input-text" [(ngModel)]="inputText" (paste)="onPaste($event)" />
+        <button type="button" class="btn btn-primary" (click)="pushCharacter(inputText)">입력</button>
+        <button type="button" class="btn btn-primary" (click)="onSearch()">검색</button>
+      </div>
+    </form>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col" style="width: 15%">delete</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let character of myCharacter; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          {{ character.name }}
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="popCharacter(i)">삭제</button>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>
