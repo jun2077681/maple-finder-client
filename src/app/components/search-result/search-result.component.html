@@ -1,3 +1,32 @@
 <div class="body">
+  <div class="main-wrap">
+    <form>
+      <div class="form-group form-inline">
+        Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+      </div>
+    </form>
 
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li ngbNavItem *ngFor="let key of inventory.keys()">
+        <a ngbNavLink>{{key}}</a>
+        <ng-template ngbNavContent>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">이름</th>
+              </tr>
+            </thead>
+            <tr *ngFor="let item of inventory.get(key); index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                {{ item.name + (item.quantity ? "  (" + item.quantity + "개)" : "") }}
+              </td>
+            </tr>
+          </table>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </div>
 </div>

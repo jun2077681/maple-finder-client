@@ -8,6 +8,7 @@ import { TestComponent } from './components/test/test.component';
 import {MainComponent} from "./components/main/main.component";
 import {FormsModule} from "@angular/forms";
 import {SearchResultComponent} from "./components/search-result/search-result.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,9 +19,10 @@ import {SearchResultComponent} from "./components/search-result/search-result.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

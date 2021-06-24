@@ -1,10 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SearchService} from "../../services/search.service";
-
-interface Character {
-  name: string;
-}
+import {Character} from "../../types/Character";
 
 @Component({
   selector: 'app-main',
@@ -78,7 +75,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    this.searchService.setResult(this.myCharacter);
+    this.searchService.setCharacters(this.myCharacter);
     this.router.navigate(['/result']);
   }
 
