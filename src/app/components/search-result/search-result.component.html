@@ -1,0 +1,47 @@
+<div class="body">
+  <div class="main-wrap">
+    <form>
+      <div class="form-group form-inline">
+        Full text search: <input class="form-control ml-2" type="text" name="searchTerm"
+                                 [(ngModel)]="searchService.searchTerm"/>
+        <span class="ml-3" *ngIf="searchService.loading$ | async">Loading...</span>
+      </div>
+
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" (activeIdChange)="onTabChange($event)" class="nav-tabs">
+        <li ngbNavItem *ngFor="let key of inventoryType" [ngbNavItem]="key">
+          <a ngbNavLink>{{inventoryTypeEnum[key]}}</a>
+          <ng-template ngbNavContent>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" sortable="name" (sort)="onSort($event)">이름</th>
+              </tr>
+              </thead>
+              <tr *ngFor="let item of inventory$ | async; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                  <ngb-highlight [result]="item.name" [term]="searchService.searchTerm"></ngb-highlight>
+                  {{ (item.quantity ? "  (" + item.quantity + "개)" : "") }}
+                </td>
+              </tr>
+            </table>
+
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination
+                [collectionSize]="(total$ | async)!" [(page)]="searchService.page" [pageSize]="searchService.pageSize">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="searchService.pageSize">
+                <option [ngValue]="2">2 items per page</option>
+                <option [ngValue]="4">4 items per page</option>
+                <option [ngValue]="6">6 items per page</option>
+              </select>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </form>
+  </div>
+</div>
